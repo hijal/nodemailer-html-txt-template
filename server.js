@@ -1,23 +1,28 @@
 require('dotenv').config();
 
 const express = require('express');
-const mailer = require('./mailer');
+const { send } = require('./mailer');
 const app = express();
 
 app.get('/html', async (req, res) => {
-  await mailer.send({
-    from: 'imh1j4l@gmail.com',
-    to: 'hijal.browser@gmail.com',
-    subject: 'Hello from Nodemailer',
-    template: {
-      name: 'hello.html',
-      data: {
-        first_name: 'Hello',
-        last_name: 'World!'
+  try {
+    await send({
+      from: 'imh1j4l@gmail.com',
+      to: 'hijal.browser@gmail.com',
+      subject: 'Hello from Nodemailer',
+      template: {
+        name: 'test.html',
+        data: {
+          first_name: 'Hello',
+          last_name: 'World!'
+        }
       }
-    }
-  });
-  res.send('Mail send successfully!');
+    });
+    res.send('Mail send successfully!');
+  } catch (err) {
+    console.log(err);
+    res.send({ ...err });
+  }
 });
 
 app.get('/txt', async (req, res) => {

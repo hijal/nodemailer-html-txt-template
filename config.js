@@ -7,8 +7,8 @@ module.exports = {
     secure: true,
     service: 'Gmail',
     auth: {
-      user: process.env.USER,
-      pass: process.env.PASS
+      user: process.env.USER_MAIL,
+      pass: process.env.MAIL_PASS
     }
   }
 };
